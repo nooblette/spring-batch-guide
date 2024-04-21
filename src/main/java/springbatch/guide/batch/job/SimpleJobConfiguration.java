@@ -31,7 +31,7 @@ public class SimpleJobConfiguration {
 			.build();
 	}
 
-	@Bean(name="simpleStep1") // simpleStep1 객체 스프링 빈 수동 등록
+	@Bean // simpleStep1 객체 스프링 빈 수동 등록
 	@JobScope // simpleStep1 빈 생성 시점을 스프링 애플리케이션 실행이 아닌 해당 step 생성 메서드가 호출까지 지연(Late Binding)한다. (JobParameter를 유연하게 할당하기 위함)
 	// @Value("#{jobParameters[requestDate]}") : 외부로부터 전달받은 job 실행 parameter를 사용한다.
 	public Step simpleStep1(@Value("#{jobParameters[requestDate]}") String requestDate, JobRepository jobRepository,
@@ -46,13 +46,13 @@ public class SimpleJobConfiguration {
 			.build();
 	}
 
-	@Bean(name="simpleStep2")
+	@Bean
 	@JobScope // Late Binding
 	public Step simpleStep2(@Value("#{jobParameters[requestDate]}") String requestDate, JobRepository jobRepository,
 							PlatformTransactionManager platformTransactionManager) {
 		return new StepBuilder("simpleStep2", jobRepository)
 			.tasklet(((contribution, chunkContext) -> {
-				log.info("start step2, requestDate : {]", requestDate);
+				log.info("start step2, requestDate : {}", requestDate);
 				log.info("end step2");
 				return RepeatStatus.FINISHED;
 			}), platformTransactionManager)
