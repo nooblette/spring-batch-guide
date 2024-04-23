@@ -15,13 +15,11 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import springbatch.guide.batch.beanprinter.BeanListPrinter;
 
 @Slf4j // 로깅을 위함
 @RequiredArgsConstructor
 @Configuration // @Bean 애노테이션으로 생성된 스프링 빈 객체(simpleJob, simpleStep1)를 스프링 컨테이너에 등록, 싱글톤 패턴을 따르도록 보장
 public class SimpleJobConfiguration {
-	private final BeanListPrinter beanListPrinter;
 
 	@Bean // simpleJob 객체 스프링 빈 수동 등록
 	public Job simpleJob(JobRepository jobRepository, @Qualifier("simpleStep1") Step simpleStep1, @Qualifier("simpleStep2") Step simpleStep2){
