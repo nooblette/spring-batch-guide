@@ -31,7 +31,7 @@ public class ScopeJobConfiguration {
 		log.info(">> this is scopeJob");
 		Object simpleJobTasklet = applicationContext.getBean("simpleJobTasklet");
 		SimpleJobTasklet simpleJobTasklet1 = (SimpleJobTasklet)simpleJobTasklet;
-		simpleJobTasklet1.test();
+		//simpleJobTasklet1.test();
 
 		return new JobBuilder("scopeJob", jobRepository)
 			.start(scopeStep1)
