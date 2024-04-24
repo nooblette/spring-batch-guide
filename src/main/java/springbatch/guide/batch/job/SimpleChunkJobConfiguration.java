@@ -32,7 +32,7 @@ public class SimpleChunkJobConfiguration {
 	private final PlatformTransactionManager platformTransactionManager;
 	@Bean
 	public Job simpleChunkJob(){
-		System.out.println("SimpleChunkJobConfiguration.simpleChunkJob");
+		// System.out.println("SimpleChunkJobConfiguration.simpleChunkJob");
 		return new JobBuilder("simpleChunkJob", jobRepository)
 			.start(simpleChunkStep())
 			.build();
@@ -40,7 +40,7 @@ public class SimpleChunkJobConfiguration {
 
 	@Bean
 	public Step simpleChunkStep(){
-		System.out.println("SimpleChunkJobConfiguration.simpleChunkStep");
+		// System.out.println("SimpleChunkJobConfiguration.simpleChunkStep");
 		return new StepBuilder("simpleChunkStep", jobRepository)
 			.<SimpleChunkDto, String>chunk(10, platformTransactionManager)
 			.reader(flatFileReader())
@@ -51,7 +51,7 @@ public class SimpleChunkJobConfiguration {
 
 	@Bean
 	public ItemReader<SimpleChunkDto> flatFileReader(){
-		System.out.println("SimpleChunkJobConfiguration.flatFileReader");
+		// System.out.println("SimpleChunkJobConfiguration.flatFileReader");
 		return new FlatFileItemReaderBuilder<SimpleChunkDto>()
 			.name("flatFileReader")
 			.resource(new ClassPathResource("simpleChunkTest.txt"))
@@ -62,7 +62,7 @@ public class SimpleChunkJobConfiguration {
 
 	@Bean
 	public LineMapper<SimpleChunkDto> lineMapper(){
-		System.out.println("SimpleChunkJobConfiguration.lineMapper");
+		// System.out.println("SimpleChunkJobConfiguration.lineMapper");
 		DefaultLineMapper<SimpleChunkDto> lineMapper = new DefaultLineMapper<>();
 		DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
 		lineTokenizer.setNames("name");
@@ -77,18 +77,18 @@ public class SimpleChunkJobConfiguration {
 
 	@Bean
 	public ItemProcessor<SimpleChunkDto, String> simpleChunkProcessor(){
-		System.out.println("SimpleChunkJobConfiguration.simpleChunkProcessor");
+		// System.out.println("SimpleChunkJobConfiguration.simpleChunkProcessor");
 		return simpleChunkDto -> {
-			System.out.println(">> start processing : simpleChunkDto.getName() = " + simpleChunkDto.getName());
+			// System.out.println(">> start processing : simpleChunkDto.getName() = " + simpleChunkDto.getName());
 			return String.format("%s", simpleChunkDto.getName());
 		};
 	}
 
 	@Bean
 	public ItemWriter<String> simpleChunkWriter(){
-		System.out.println("SimpleChunkJobConfiguration.simpleChunkWriter");
+		// System.out.println("SimpleChunkJobConfiguration.simpleChunkWriter");
 		return items -> {
-			System.out.println(">> start writing : " + String.join(", ", items));
+			// System.out.println(">> start writing : " + String.join(", ", items));
 		};
 
 	}

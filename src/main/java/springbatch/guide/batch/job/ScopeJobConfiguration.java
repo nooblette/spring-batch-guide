@@ -28,7 +28,7 @@ public class ScopeJobConfiguration {
 	public Job scopeJob(JobRepository jobRepository,
 						@Qualifier("scopeStep1") Step scopeStep1,
 						@Qualifier("scopeStep2") Step scopeStep2) {
-		log.info(">> this is scopeJob");
+		//log.info(">> this is scopeJob");
 		Object simpleJobTasklet = applicationContext.getBean("simpleJobTasklet");
 		SimpleJobTasklet simpleJobTasklet1 = (SimpleJobTasklet)simpleJobTasklet;
 		//simpleJobTasklet1.test();
