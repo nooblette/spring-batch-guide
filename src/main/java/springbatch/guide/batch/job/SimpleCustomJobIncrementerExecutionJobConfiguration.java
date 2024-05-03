@@ -12,6 +12,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import springbatch.guide.batch.incrementer.CustomJobIncrementer;
 
 @Slf4j
 @Configuration
@@ -27,7 +28,7 @@ public class SimpleCustomJobIncrementerExecutionJobConfiguration {
 			.incrementer(
 				// incrementer()는 JobParametersIncrementer 인터페이스를 매개변수로 받고, 이 인터페이스의 getNext() 메서드가 다음 Job 실행시 사용될 JobParameter 오브젝트를 반환한다.
 				// 만일 incrementer 설정 없이 배치를 실행한 후에 incrementer를 설정한다면 Job을 식별할 수 없어 실행되지 않는다. (이전 배치에서 다음 Job 실행시 사용할 JobParameter 오브젝트를 생성하지 않았기 때문)
-				new CustomJobIncrementerExecutionJob() // getNext() 메서드를 구현한다, getNext()에 구현한 로직대로 JobParmaters에서 필요한 값을 증가시켜 다음 Job 실행시 사용될 JobParameters 오브젝트를 얻는다.
+				new CustomJobIncrementer() // getNext() 메서드를 구현한다, getNext()에 구현한 로직대로 JobParmaters에서 필요한 값을 증가시켜 다음 Job 실행시 사용될 JobParameters 오브젝트를 얻는다.
 			)
 			.build();
 	}

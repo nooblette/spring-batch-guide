@@ -1,4 +1,4 @@
-package springbatch.guide.batch.job;
+package springbatch.guide.batch.incrementer;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * - 이 때, JobParameter를 직접 변경하지 않고 동일한 Job 클래스를 여러 번 수행하기 위해 JobParametersIncrementer 인터페이스를 직접 구현하여 사용할 수 있다.
  * */
 @Component
-public class CustomJobIncrementerExecutionJob implements JobParametersIncrementer {
+public class CustomJobIncrementer implements JobParametersIncrementer {
 	@Override
 	// getNext() : JobParmeters에서 필요한 값을 증가시켜 다음 job을 실행할 때 Job을 식별하기 위해 사용할 JobParameters 오브젝트를 반환
 	public JobParameters getNext(JobParameters parameters) {
