@@ -8,7 +8,7 @@ SELECT  JOB_INSTANCE_ID, # pk, JobInstance의 getId 메서드를 통해 얻을 �
         JOB_NAME, # 수행한 batch job name
         JOB_KEY # job name과 job parameter를 기반으로 생성
 FROM    BATCH_JOB_INSTANCE
-WHERE   JOB_NAME = 'executionContextJob'
+WHERE   JOB_NAME = 'simpleJob'
 order by JOB_INSTANCE_ID desc
 ;
 
@@ -28,7 +28,7 @@ SELECT  JOB_EXECUTION_ID, # PK
         LAST_UPDATED # 레코드 마지막 갱신 시간
 FROM    BATCH_JOB_EXECUTION
 WHERE   1 = 1
-AND     JOB_INSTANCE_ID = 109
+AND     JOB_INSTANCE_ID = 111
 ;
 
 # BATCH_JOB_EXECUTION_PARAMS
@@ -41,7 +41,7 @@ SELECT  JOB_EXECUTION_ID, # FK (references BATCH_JOB_EXECUTION.JOB_EXECUTION_ID)
         PARAMETER_VALUE, # job parameter value
         IDENTIFYING # job instance 생성시 hash 값에 참여했는지 여부
 FROM    BATCH_JOB_EXECUTION_PARAMS
-WHERE   JOB_EXECUTION_ID = 132
+WHERE   JOB_EXECUTION_ID = 134
 ;
 
 # BATCH_JOB_EXECUTION_CONTEXT
@@ -79,7 +79,7 @@ select  STEP_EXECUTION_ID, # PK, stepExecution 객체의 getId 메서드로 얻�
         LAST_UPDATED # 레코드 마지막 갱신 시간
 from    BATCH_STEP_EXECUTION
 where   1 = 1
-and     JOB_EXECUTION_ID = 132
+and     JOB_EXECUTION_ID = 134
 ;
 
 # BATCH_STEP_EXECUTION_CONTEXT

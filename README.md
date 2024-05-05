@@ -8,6 +8,7 @@
   - 동작원리 : https://gngsn.tistory.com/178
   - Meta Data : https://gngsn.tistory.com/179
   - 데이터 처리 활용 : https://gngsn.tistory.com/187
+  - SEQ ID : https://gngsn.tistory.com/196
 - Spring Batch 5.0 버전 대응
   - https://velog.io/@calaf/Spring-Batch-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-1.-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0
 - JobScope와 StepScope (Spring BeanScope와 Proxy 모드)
