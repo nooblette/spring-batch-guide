@@ -24,3 +24,8 @@
 - JobIncrementer
   - https://bistros.tistory.com/19
   - https://daram.tistory.com/488
+- Listener
+  - https://hanseom.tistory.com/210
+- ParentJob, ChildJob
+  - https://www.inflearn.com/questions/704160/jobstep-%EA%B0%95%EC%9D%98%EC%97%90%EC%84%9C-childjob-%EC%8B%A4%ED%96%89-%EC%A7%88%EB%AC%B8
+  - https://devfunny.tistory.com/798
