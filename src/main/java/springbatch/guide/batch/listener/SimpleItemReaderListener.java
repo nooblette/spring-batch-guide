@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class SimpleItemReaderListener implements ItemReadListener<User> {
 	@Override
 	public void beforeRead() {
-		//log.info(">> beforeRead");
+		log.info(">> beforeRead");
 	}
 
 	@Override

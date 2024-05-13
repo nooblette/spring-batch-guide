@@ -13,8 +13,9 @@ import org.springframework.stereotype.Component;
 public class SimpleWriter implements ItemWriter<String> {
 
 	@Override
-	public void write(Chunk<? extends String> chunk) throws Exception {
+	public void write(Chunk<? extends String> chunk) {
 		log.info(">> this is SimpleWriter.write");
+
 		chunk.forEach(item -> log.info(">> item: {}", item));
 	}
 }

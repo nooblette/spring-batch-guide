@@ -15,11 +15,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import springbatch.guide.batch.dto.User;
+import springbatch.guide.batch.execption.SimpleSkipException;
 import springbatch.guide.batch.listener.SimpleChunkListener;
 import springbatch.guide.batch.listener.SimpleItemProcessorListener;
 import springbatch.guide.batch.listener.SimpleItemReaderListener;
 import springbatch.guide.batch.listener.SimpleItemWriterListener;
 import springbatch.guide.batch.listener.SimpleJobExecutionListener;
+import springbatch.guide.batch.listener.SimpleSkipListener;
 import springbatch.guide.batch.listener.SimpleStepExecutionListener;
 import springbatch.guide.batch.processor.SimpleProcessor;
 import springbatch.guide.batch.reader.SimpleReader;
@@ -44,6 +46,7 @@ public class SimpleListenerJobConfiguration {
 	private final SimpleItemReaderListener simpleItemReaderListener;
 	private final SimpleItemWriterListener simpleItemWriterListener;
 	private final SimpleItemProcessorListener simpleItemProcessorListener;
+	private final SimpleSkipListener simpleSkipListener;
 
 
 	@Bean(name = JOB_NAME)
@@ -76,6 +79,10 @@ public class SimpleListenerJobConfiguration {
 			.reader(simpleReader.reader())
 			.processor(simpleProcessor)
 			.writer(simpleWriter)
+				.faultTolerant() // Skip 기능을 사용하기 위함
+				.skip(SimpleSkipException.class) // Skip 대상 예외 클래스, 지정하지 않은 예외가 발생할 경우 ExhaustedRetryException 에외가 발생하며 배치가 실패처리된다.
+				.skipLimit(6) // 최대 Skip 가능 횟수, 6회 이상 Skip할 경우 SkipLimitExceedException이 발생하고 배치가 실패처리 된다.
+				.listener(simpleSkipListener) // Skip 발생시 동작할 SkipListener, WriteListener의 afterWrite()까지 호출하고나서 SkipListener의 메서드가 수행된다.
 			.listener(simpleItemReaderListener)
 			.listener(simpleItemProcessorListener)
 			.listener(simpleItemWriterListener)
