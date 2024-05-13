@@ -80,8 +80,13 @@ public class SimpleListenerJobConfiguration {
 			.processor(simpleProcessor)
 			.writer(simpleWriter)
 				.faultTolerant() // Skip 기능을 사용하기 위함
-				.skip(SimpleSkipException.class) // Skip 대상 예외 클래스, 지정하지 않은 예외가 발생할 경우 ExhaustedRetryException 에외가 발생하며 배치가 실패처리된다.
-				.skipLimit(6) // 최대 Skip 가능 횟수, 6회 이상 Skip할 경우 SkipLimitExceedException이 발생하고 배치가 실패처리 된다.
+				.skip(SimpleSkipException.class) // Skip 대상 예외 클래스 지정
+				// skip()에 지정하지 않은 예외가 발생할 경우 ExhaustedRetryException 에외가 발생하며 배치가 실패처리한다.
+				// e.g.
+				//  - ItemWriter에서 예외가 발생한 경우, ItemProcessor를 다시 수행한 뒤 ItemWriter를 동작하기 전에 이전에 발생한 예외를 확인한다.
+				//  - 만약 이전에 발생한 에외가 skip()에 명시한 예외가 아니라면 배치를 중단하고 실패처리한다.
+				.skipLimit(6) // 최대 Skip 가능 횟수
+				// 6회 이상 SimpleSkipException 예외가 발생할 경우 SkipLimitExceedException이 발생하고 배치가 실패처리 된다.
 				.listener(simpleSkipListener) // Skip 발생시 동작할 SkipListener, WriteListener의 afterWrite()까지 호출하고나서 SkipListener의 메서드가 수행된다.
 			.listener(simpleItemReaderListener)
 			.listener(simpleItemProcessorListener)
